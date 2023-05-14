@@ -2,26 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    --header-height: 100px;
+    --tablet-header-height: 100px;
+    --mobile-header-height: 44px;
+    --footer-height: 184px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
+  }
+
+  header {
+    @apply sticky z-10 flex w-full h-[var(--mobile-header-height)] md:h-[var(--tablet-header-height)] lg:h-[var(--header-height)] items-center justify-between px-4 py-4 transition-all lg:px-6 xl:px-10 lg:py-6 bg-primary-900 text-light-100 duration-200;
+  }
+
+  footer {
+    @apply w-full flex justify-center items-center  h-[var(--footer-height)]  px-16 transition-all lg:px-10 bg-primary-200 text-white;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+  .headerLink {
+    @apply max-w-xs mx-auto md:ml-7 p-2 cursor-pointer transition duration-300 hover:bg-primary-100 md:text-lg font-medium hover:text-black hover:rounded-lg;
+  }
+
+  .bannerButton {
+    @apply flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl;
+  }
+
+  .menuDesktop {
+    @apply lg:relative lg:flex lg:space-x-1  xl:space-x-4 lg:min-h-0 lg:top-0 lg:px-0 lg:py-0 lg:space-y-0 lg:translate-x-0 lg:text-base;
+  }
+
+  .menuMobile {
+    @apply fixed left-0 w-2/3 top-[var(--mobile-header-height)] md:top-[var(--tablet-header-height)]  min-h-[calc(100vh-var(--header-height))] px-8 pt-8 space-y-4 bg-primary-700 lg:bg-primary-900 transform text-left transition duration-300;
+  }
+  .title {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl text-secondary-300;
+  }
+
+  .minHeight {
+    @apply min-h-[calc(100vh-var(--mobile-header-height)-var(--footer-height))] md:min-h-[calc(100vh-var(--tablet-header-height)-var(--footer-height))] lg:min-h-[calc(100vh-var(--header-height)-var(--footer-height))];
+  }
+  .subtitle {
+    @apply text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl;
+  }
+
+  .gradientTest {
+    @apply bg-mobile-pattern md:bg-global-pattern  bg-no-repeat bg-cover bg-center;
+  }
+  .gradient {
+    @apply bg-gradient-to-b from-primary-700 to-primary-200;
+  }
+
+  .btn {
+    @apply text-lg text-primary-700  px-12 py-1 md:py-1 bg-white rounded-[10px] hover:bg-primary-100;
+  }
+  .btnSecond {
+    @apply text-primary-50  bg-primary-700 hover:bg-primary-50 hover:text-primary-600;
+  }
+
+  /* Flex justify-start items-center */
+  .flexS {
+    @apply flex justify-start items-center;
+  }
+  /* Flex justify-between items-center */
+  .flexB {
+    @apply flex justify-between items-center;
+  }
 }
